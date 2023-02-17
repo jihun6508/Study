@@ -4,6 +4,7 @@
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
+  <!-- 
   <servlet>
     <description></description>
     <display-name>insertUser</display-name>
@@ -19,4 +20,13 @@
     <servlet-name>insertUser</servlet-name>
     <url-pattern>/insertUser.do</url-pattern>
   </servlet-mapping>
+   -->
+     <!-- 
+   
+   <context-param>
+ 	    <param-name>boardEncoding</param-name>
+    	<param-value>UTF-8</param-value>
+   </context-param>
+      -->
+   
 </web-app>
