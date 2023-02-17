@@ -1,6 +1,5 @@
 package com.saamz.web.biz.user;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class InsertTest {
