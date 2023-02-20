@@ -10,6 +10,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class GetBoardListServlet
@@ -29,6 +30,8 @@ public class GetBoardListServlet extends HttpServlet {
 	}
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//0. 상태 정보 체크
+		//0-1 쿠키 형태로 사용한 경우
+		/*
 		Cookie[] cookieList = request.getCookies();
 		if(cookieList == null) {
 			response.sendRedirect("/login.html");
@@ -44,6 +47,25 @@ public class GetBoardListServlet extends HttpServlet {
 				response.sendRedirect("/login.html");
 			}
 		}
+		*/
+
+		//0-2.세션 기능 테스트
+		/*
+		HttpSession session = request.getSession();
+		String sessionId = session.getId();
+		if(session.isNew()) {
+			System.out.println("===> 처음 생성된 세션 : "+sessionId);
+		} else {
+			System.out.println("---> 재사용중인 세션"+sessionId);
+		}
+		*/
+		//0-3. 세션을 이용한 상태 정보 체크 구현  -> 인증 데이터가 없으면 로그인 창으로 리다이렉트됨
+		HttpSession session = request.getSession();
+		String userId = (String) session.getAttribute("userId");
+		if(userId == null) {
+			response.sendRedirect("/");
+		}
+		
 		//1. DB 연동 처리
 		BoardVO vo = new BoardVO();
 		
@@ -51,18 +73,20 @@ public class GetBoardListServlet extends HttpServlet {
 		List<BoardVO> boardList = boardDAO.getBoardList(vo);
 		
 		//2. 응답 화면 구성
-////		서버 연동 확인 및 기능 테스트용 코드
-//		response.setContentType("text/html; charset=EUC-KR");
-//		PrintWriter out = response.getWriter();
-//		
-//		out.println("<h1>게시글 목록</h1>");
-//		out.println("<hr>");
-//		
-//		for(BoardVO board : boardList) {
-//			out.println("---> "+ board.toString()+"</br>");
-//		}
-//		
-//		out.close();
+		//서버 연동 확인 및 기능 테스트용 코드
+		/*
+		response.setContentType("text/html; charset=EUC-KR");
+		PrintWriter out = response.getWriter();
+		
+		out.println("<h1>게시글 목록</h1>");
+		out.println("<hr>");
+		
+		for(BoardVO board : boardList) {
+			out.println("---> "+ board.toString()+"</br>");
+		}
+		
+		out.close();
+		*/
 		
 		response.setContentType("text/html; charset=EUC-KR");
 		PrintWriter out = response.getWriter();
@@ -75,7 +99,11 @@ public class GetBoardListServlet extends HttpServlet {
 		out.println("<body>");
 		out.println("<center>");
 		out.println("<h1>게시글 목록</h1>");
-		out.println("<h3>테스터님 로그인 환영합니다......");
+		
+		String userName = (String) session.getAttribute("userNAme");
+		out.println("<h3>"+userName +"님 로그인을 환영합니다....");
+//		out.println("<h3>테스터님 로그인 환영합니다......");
+
 		out.println("<a href='logout.do'>Log-out</a></h3>");
 		
 		out.println("<table border='1' cellpadding='0' cellspacing='0' width='700'>");

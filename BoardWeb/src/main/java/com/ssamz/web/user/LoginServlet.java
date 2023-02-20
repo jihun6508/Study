@@ -10,6 +10,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.ssamz.web.biz.user.UserDAO;
 import com.ssamz.web.biz.user.UserVO;
@@ -28,6 +29,7 @@ public class LoginServlet extends HttpServlet {
     @Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	//HTTP 요청 구조
+    	/*
 		System.out.println("service() 호출");
 		System.out.println("------------Start Line----------");
 		String method = request.getMethod();
@@ -41,6 +43,7 @@ public class LoginServlet extends HttpServlet {
 		System.out.println("Accept : "+ request.getHeader("accept"));
 		System.out.println("Accept-Encoding : "+ request.getHeader("accept-encoding"));
 		System.out.println("Accep-Language : "+ request.getHeader("accept-languge"));
+		*/
 		
 		//1. 사용자 입력 정보 추출
 		String id = request.getParameter("id");
@@ -63,9 +66,20 @@ public class LoginServlet extends HttpServlet {
 		//메시지 출력
 		if(user !=null) {
 			if(user.getPassword().equals(password)) {
+				//쿠키를 적용한 경우
 				//상태 정보를 쿠키에 저장하여 전송한다.
+				/*
 				Cookie userId = new Cookie("userId", user.getId());
 				response.addCookie(userId);
+				*/
+				//세션으로 구현
+				HttpSession session = request.getSession();
+				session.setMaxInactiveInterval(600);//세션 유효시간을 10분으로 설정
+				session.setAttribute("userId", user.getId());
+				session.setAttribute("userName", user.getName());
+				session.setAttribute("userRole", user.getRole());
+				
+				
 				//글 목록 화면으로 포워딩
 				RequestDispatcher dispatcher = request.getRequestDispatcher("getBoardList.do");
 				dispatcher.forward(request, response);
@@ -74,8 +88,8 @@ public class LoginServlet extends HttpServlet {
 				out.println("<a href='/'>다시 로그인 </a>");
 			}
 		} else {
-			System.out.println("아이디 오류입니다.<br>");
-			System.out.println("<a href='/'>다시 로그인 </a>");
+			out.println("아이디 오류입니다.<br>");
+			out.println("<a href='/'>다시 로그인 </a>");
 		}
 	}
 }

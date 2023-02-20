@@ -9,6 +9,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet("/deleteBoard.do")
 public class DeleteBoardServlet extends HttpServlet {
@@ -16,6 +17,8 @@ public class DeleteBoardServlet extends HttpServlet {
 	
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 0. 상태 정보 체크
+		// 0-1 쿠키 형태로 구현
+		/*
 		Cookie[] cookieList = request.getCookies();
 		if(cookieList == null) {
 			response.sendRedirect("/login.html");
@@ -31,6 +34,14 @@ public class DeleteBoardServlet extends HttpServlet {
 				response.sendRedirect("/login.html");
 			}
 		}
+		*/
+		//0-2. 세션 형태로 구현
+		HttpSession session = request.getSession();
+		String userId = (String) session.getAttribute("userId");
+		if(userId ==null) {
+			response.sendRedirect("/");
+		}
+		
 		// 1. 사용자 입력 정보 추출 => 사용자 입력 한글인코딩, 사용자 입력을 getParameter로 가져오기
 		String seq = request.getParameter("seq");
 		

@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet("/getBoard.do")
 public class GetBoardServlet extends HttpServlet {
@@ -16,7 +17,13 @@ public class GetBoardServlet extends HttpServlet {
     
    protected void service(HttpServletRequest request, HttpServletResponse response)
          throws ServletException, IOException {
-      
+      //0. 상태 정보 체크
+	  HttpSession session = request.getSession();
+	  String userId = (String) session.getAttribute("userId");
+	  if(userId == null) {
+		  response.sendRedirect("/");
+	  }
+	  
       // 1. 사용자 입력 정보 추출
       String seq= request.getParameter("seq"); // 문자열
       // 2.DB 연동 처리
@@ -69,7 +76,14 @@ public class GetBoardServlet extends HttpServlet {
       out.println("</form>");
       out.println("<hr>");
       out.println("<a href='insertBoard.html'>글등록</a>&nbsp;&nbsp;&nbsp;");
-      out.println("<a href='deleteBoard.do?seq=" + board.getSeq() +"'>글삭제</a>&nbsp;&nbsp;&nbsp;");
+      
+      //admin 권한을 가진 사람에게만 글삭제 링크를 보이게 함
+      String userRole = (String) session.getAttribute("userRole");
+      if(userRole.equals("ADMIN")) {
+          out.println("<a href='deleteBoard.do?seq=" + board.getSeq() +"'>글삭제</a>&nbsp;&nbsp;&nbsp;");
+      }
+//      out.println("<a href='deleteBoard.do?seq=" + board.getSeq() +"'>글삭제</a>&nbsp;&nbsp;&nbsp;");
+
       out.println("<a href='getBoardList.do'>글목록</a>");
       out.println("</center>");
       out.println("</body>");
