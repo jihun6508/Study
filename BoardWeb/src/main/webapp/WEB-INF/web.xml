@@ -4,29 +4,20 @@
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
-  <!-- 
+  <context-param>
+    <param-name>boardEncoding</param-name>
+    <param-value>UTF-8</param-value>
+  </context-param>
+  <!--
   <servlet>
     <description></description>
-    <display-name>insertUser</display-name>
-    <servlet-name>insertUser</servlet-name>
-    <servlet-class>com.saamz.web.user.InsertUserServlet</servlet-class>
-    
-    <init-param>
-    	<param-name>boardEncoding</param-name>
-    	<param-value>UTF-8</param-value>
-    </init-param>
+    <display-name>GetBoardListServlet</display-name>
+    <servlet-name>GetBoardListServlet</servlet-name>
+    <servlet-class>com.saamz.web.biz.board.GetBoardListServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>insertUser</servlet-name>
-    <url-pattern>/insertUser.do</url-pattern>
+    <servlet-name>GetBoardListServlet</servlet-name>
+    <url-pattern>/GetBoardList.do</url-pattern>
   </servlet-mapping>
-   -->
-     <!-- 
-   
-   <context-param>
- 	    <param-name>boardEncoding</param-name>
-    	<param-value>UTF-8</param-value>
-   </context-param>
-      -->
-   
+  -->
 </web-app>

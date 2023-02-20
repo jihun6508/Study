@@ -3,6 +3,7 @@ package com.saamz.web.user;
 import java.io.IOException;
 
 import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
@@ -16,19 +17,21 @@ import com.saamz.web.biz.user.UserVO;
 /**
  * Servlet implementation class InsertUserServlet
  */
-//@WebServlet(urlPatterns = "insertUser.do")
-@WebServlet(urlPatterns = "/insertUser.do", initParams = @WebInitParam(name = "boardEncoding", value = "UTF-8"))
+//@WebServlet(urlPatterns = "/insertUser.do", initParams = @WebInitParam(name = "boardEncoding", value = "UTF-8"))
+
+@WebServlet(urlPatterns = "/insertUser.do")
+
 public class InsertUserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private String encoding;
-	
-	@Override
-	public void init(ServletConfig config) throws ServletException {
-		// TODO Auto-generated method stub
-		encoding = config.getInitParameter("boardEncoding");
-		System.out.println("---> Encoding : "+ encoding);
-	}
+//어노테이션 구현을 위해 주석처리	
+//	@Override
+//	public void init(ServletConfig config) throws ServletException {
+//		// TODO Auto-generated method stub
+//		encoding = config.getInitParameter("boardEncoding");
+//		System.out.println("---> Encoding : "+ encoding);
+//	}
 
 
 
@@ -38,8 +41,12 @@ public class InsertUserServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//인코딩 처리(한글 깨지는것 수정)
 //		request.setCharacterEncoding("UTF-8");  //init-param을 사용하기 전
-		request.setCharacterEncoding(encoding); //init() 에서 초기화 하는 경우
-		
+//		request.setCharacterEncoding(encoding); //init() 에서 초기화 하는 경우
+
+		ServletContext context = getServletContext();
+		encoding = context.getInitParameter("boardEncoding");
+		System.out.println("---> Encoding : " + encoding);
+		request.setCharacterEncoding(encoding); 
 		/*
 		 * init()이 아닌 service에서 초기화하는 경우.
 		ServletConfig config = getServletConfig();
