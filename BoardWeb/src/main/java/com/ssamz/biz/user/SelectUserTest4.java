@@ -1,10 +1,10 @@
-package com.saamz.biz.user;
+package com.ssamz.biz.user;
 
 
 import java.util.List;
 
-import com.saamz.web.biz.user.UserDAO;
-import com.saamz.web.biz.user.UserVO;
+import com.ssamz.web.biz.user.UserDAO;
+import com.ssamz.web.biz.user.UserVO;
 
 //VO 패턴 적용 밑 getlistVO의 패턴별 값 확인
 public class SelectUserTest4 {

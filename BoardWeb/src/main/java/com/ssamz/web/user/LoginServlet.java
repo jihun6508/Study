@@ -1,4 +1,4 @@
-package com.saamz.web.user;
+package com.ssamz.web.user;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.saamz.web.biz.user.UserDAO;
-import com.saamz.web.biz.user.UserVO;
+import com.ssamz.web.biz.user.UserDAO;
+import com.ssamz.web.biz.user.UserVO;
 
 
 

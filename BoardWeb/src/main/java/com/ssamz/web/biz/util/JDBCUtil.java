@@ -1,4 +1,4 @@
-package com.saamz.web.biz.util;
+package com.ssamz.web.biz.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public class JDBCUtil {
 
-	public static Connection getConection() {
+	public static Connection getConnection() {
 		Connection conn = null;
 		String jdbcURL = null;
 		try {

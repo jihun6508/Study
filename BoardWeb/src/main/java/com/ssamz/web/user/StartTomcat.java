@@ -1,4 +1,4 @@
-package com.saamz.web.user;
+package com.ssamz.web.user;
 
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.startup.Tomcat;

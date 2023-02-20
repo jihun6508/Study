@@ -1,4 +1,4 @@
-package com.saamz.web.biz.user;
+package com.ssamz.web.biz.user;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.saamz.web.biz.util.JDBCUtil;
+import com.ssamz.web.biz.util.JDBCUtil;
 
 public class UserDAO {
 	private String USER_INSERT = "insert into USERS values(?,?,?,?)";//insert id, password, name, role
@@ -29,7 +29,7 @@ public class UserDAO {
 
 
 		try {
-			conn=JDBCUtil.getConection();
+			conn=JDBCUtil.getConnection();
 			stmt= conn.prepareStatement(USER_GET);
 			if(stmt!=null) {
 				System.out.println("Statement 按眉: "+ stmt.toString());
@@ -60,7 +60,7 @@ public class UserDAO {
 	//delete 备泅
 	public void deleteUISer(UserVO vo) {
 		try {
-			conn=JDBCUtil.getConection();
+			conn=JDBCUtil.getConnection();
 			stmt= conn.prepareStatement(USER_DELETE);
 			if(stmt!=null) {
 				System.out.println("Statement 按眉: "+ stmt.toString());
@@ -80,7 +80,7 @@ public class UserDAO {
 	//insert 备泅
 	public void insertUser(UserVO vo) {
 		try {
-			conn=JDBCUtil.getConection();
+			conn=JDBCUtil.getConnection();
 			stmt= conn.prepareStatement(USER_INSERT);
 			if(stmt!=null) {
 				System.out.println("Statement 按眉: "+ stmt.toString());
@@ -104,7 +104,7 @@ public class UserDAO {
 	//update 备泅
 	public void updateUser(UserVO vo) {
 		try {
-			conn=JDBCUtil.getConection();
+			conn=JDBCUtil.getConnection();
 			stmt= conn.prepareStatement(USER_UPDATE);
 			if(stmt!=null) {
 				System.out.println("Statement 按眉: "+ stmt.toString());
@@ -129,7 +129,7 @@ public class UserDAO {
 	public List<UserVO> getUserList(){
 		List<UserVO> userList = new ArrayList<UserVO>();
 		try {
-			conn=JDBCUtil.getConection();
+			conn=JDBCUtil.getConnection();
 			
 			stmt= conn.prepareStatement(USER_SELECT);
 			

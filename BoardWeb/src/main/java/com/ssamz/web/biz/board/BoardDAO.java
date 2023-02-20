@@ -1,4 +1,4 @@
-package com.saamz.web.biz.board;
+package com.ssamz.web.biz.board;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.saamz.web.biz.util.JDBCUtil;
+import com.ssamz.web.biz.util.JDBCUtil;
 
 public class BoardDAO {
 	//JDBC 관련 변수
@@ -16,7 +16,7 @@ public class BoardDAO {
 	private ResultSet rs;
 	
 	//SQL 명령어
-	private static String BOARD_INSERT= "insert into board(seq, title, writer, content) values((select nvl(max(seq), 0) +1 from board), ?,?,?";//nvl =>null이면 0, 아니면 max(seq)값 반환
+	private static String BOARD_INSERT= "insert into board(seq, title, writer, content) values((select nvl(max(seq), 0) + 1 from board), ?,?,?)";//nvl =>null이면 0, 아니면 max(seq)값 반환
 	private static String BOARD_UPDATE ="update board set title=?, content=? where seq=?";
 	private static String BOARD_DELETE = "delete board where seq=?";
 	private static String BOARD_GET = "select * from board where seq=?";
@@ -26,7 +26,7 @@ public class BoardDAO {
 	//글 등록
 	public void insertBoard(BoardVO vo) {
 		try {
-			conn = JDBCUtil.getConection();
+			conn = JDBCUtil.getConnection();
 			stmt = conn.prepareStatement(BOARD_INSERT);
 			stmt.setString(1, vo.getTitle());
 			stmt.setString(2, vo.getWriter());
@@ -42,7 +42,7 @@ public class BoardDAO {
 	//글 수정
 	public void updateBoard(BoardVO vo) {
 		try {
-			conn = JDBCUtil.getConection();
+			conn = JDBCUtil.getConnection();
 			stmt = conn.prepareStatement(BOARD_UPDATE);
 			stmt.setString(1, vo.getTitle());
 			stmt.setString(2, vo.getContent());
@@ -58,7 +58,7 @@ public class BoardDAO {
 	//글 삭제
 	public void deleteBoard(BoardVO vo) {
 		try {
-			conn = JDBCUtil.getConection();
+			conn = JDBCUtil.getConnection();
 			stmt = conn.prepareStatement(BOARD_DELETE);
 			stmt.setInt(1, vo.getSeq());
 			stmt.executeUpdate();
@@ -73,7 +73,7 @@ public class BoardDAO {
 	public BoardVO getBoard(BoardVO vo) {
 		BoardVO board = null;
 		try {
-			conn = JDBCUtil.getConection();
+			conn = JDBCUtil.getConnection();
 			stmt = conn.prepareStatement(BOARD_GET);
 			stmt.setInt(1, vo.getSeq());
 			rs = stmt.executeQuery();
@@ -99,7 +99,7 @@ public class BoardDAO {
 	public List<BoardVO> getBoardList(BoardVO vo){
 		List<BoardVO> boardList = new ArrayList<BoardVO>();
 		try {
-			conn = JDBCUtil.getConection();
+			conn = JDBCUtil.getConnection();
 			stmt = conn.prepareStatement(BOARD_LIST);
 			rs = stmt.executeQuery();
 			

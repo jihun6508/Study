@@ -1,4 +1,4 @@
-package com.saamz.web.biz.board;
+package com.ssamz.web.biz.board;
 
 import java.sql.Date;
 

@@ -1,4 +1,4 @@
-package com.saamz.web.biz.user;
+package com.ssamz.web.biz.user;
 
 import java.util.List;
 

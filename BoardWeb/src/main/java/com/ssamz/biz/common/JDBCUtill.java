@@ -1,4 +1,4 @@
-package com.saamz.biz.common;
+package com.ssamz.biz.common;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
