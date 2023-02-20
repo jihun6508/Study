@@ -2,6 +2,7 @@ package com.ssamz.web.biz.board;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,6 +35,6 @@ public class UpdateBoardServlet extends HttpServlet {
 		boardDAO.updateBoard(vo);
 		
 		//3. 화면 이동
-		response.sendRedirect("getBoardList.do");
-	}
+		RequestDispatcher dispatcher = request.getRequestDispatcher("getBoardList.do");
+		dispatcher.forward(request, response);	}
 }

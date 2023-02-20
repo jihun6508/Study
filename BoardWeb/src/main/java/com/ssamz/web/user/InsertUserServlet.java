@@ -2,6 +2,7 @@ package com.ssamz.web.user;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -86,7 +87,7 @@ public class InsertUserServlet extends HttpServlet {
 		dao.insertUser(vo);
 		
 		//3. 화면 이동
-		response.sendRedirect("login.html");
-	}
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/login.html");
+		dispatcher.forward(request, response);	}
 
 }
