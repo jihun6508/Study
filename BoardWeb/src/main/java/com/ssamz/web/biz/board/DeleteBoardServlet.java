@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,6 +15,22 @@ public class DeleteBoardServlet extends HttpServlet {
 	static final long serialVersionUID = 1L;
 	
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// 0. 상태 정보 체크
+		Cookie[] cookieList = request.getCookies();
+		if(cookieList == null) {
+			response.sendRedirect("/login.html");
+		} else {
+			String userId = null;
+			
+			for(Cookie cookie : cookieList) {
+				if(cookie.getName().equals("userId")){
+					userId = cookie.getValue();
+				}
+			}
+			if(userId == null) {
+				response.sendRedirect("/login.html");
+			}
+		}
 		// 1. 사용자 입력 정보 추출 => 사용자 입력 한글인코딩, 사용자 입력을 getParameter로 가져오기
 		String seq = request.getParameter("seq");
 		

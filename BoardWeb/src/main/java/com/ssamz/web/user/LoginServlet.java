@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -62,6 +63,9 @@ public class LoginServlet extends HttpServlet {
 		//메시지 출력
 		if(user !=null) {
 			if(user.getPassword().equals(password)) {
+				//상태 정보를 쿠키에 저장하여 전송한다.
+				Cookie userId = new Cookie("userId", user.getId());
+				response.addCookie(userId);
 				//글 목록 화면으로 포워딩
 				RequestDispatcher dispatcher = request.getRequestDispatcher("getBoardList.do");
 				dispatcher.forward(request, response);
