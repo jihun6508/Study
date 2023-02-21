@@ -15,11 +15,15 @@ import lombok.ToString;
 @ToString
 
 public class BoardVO {
-	//VO(Value Object 클래스
+	//boardVO(Value Object 클래스)
 	private int seq;
 	private String title;
 	private String writer;
 	private String content;
 	private Date regDate;
 	private int cnt;
+	
+	//검색 관련 변수
+	private String searchCondition;
+	private String searchKeyword;
 }

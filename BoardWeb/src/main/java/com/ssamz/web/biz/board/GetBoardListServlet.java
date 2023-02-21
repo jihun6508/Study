@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -66,13 +67,33 @@ public class GetBoardListServlet extends HttpServlet {
 			response.sendRedirect("/");
 		}
 		
-		//1. DB 연동 처리
+		//1. 사용자 입력 정보 추출
+		//1-1.인코딩 처리
+		ServletContext context = request.getServletContext();
+		String encoding = context.getInitParameter("boardEncoding");
+		request.setCharacterEncoding(encoding);
+		
+		//1-2. 입력 정보 획득
+		String searchCondition = request.getParameter("searchCondition");
+		String searchKeyword = request.getParameter("searchKeyword");
+		
+		//null check
+		if(searchCondition==null) searchCondition = "TITLE";
+		if(searchKeyword == null) searchKeyword = "";  
+		
+		//세션에 검색 관련 정보 저장
+		session.setAttribute("condition", searchCondition);
+		session.setAttribute("keyword", searchKeyword);
+		
+		//2. DB 연동 처리
 		BoardVO vo = new BoardVO();
+		vo.setSearchCondition(searchCondition);
+		vo.setSearchKeyword(searchKeyword);
 		
 		BoardDAO boardDAO = new BoardDAO();
 		List<BoardVO> boardList = boardDAO.getBoardList(vo);
 		
-		//2. 응답 화면 구성
+		//3. 응답 화면 구성
 		//서버 연동 확인 및 기능 테스트용 코드
 		/*
 		response.setContentType("text/html; charset=EUC-KR");
@@ -103,9 +124,51 @@ public class GetBoardListServlet extends HttpServlet {
 		String userName = (String) session.getAttribute("userName");
 		out.println("<h3>"+userName +"님 로그인을 환영합니다....");
 //		out.println("<h3>테스터님 로그인 환영합니다......");
+		
+		//검색화면
+		out.println("<!--검색 시작-->");
+		out.println("<form action='getBoardList.do' method='post'");
+		out.println("<table border='1' cellpadding='0' cellspacing='0' width='700'>");
+		out.println("<tr>");
+		out.println("<td align='right'>");
+		out.println("<select name='searchCondition'>");
 
+		//기존 코드
+//		out.println("<option value='TITLE'>제목");
+//		out.println("<option value='CONTENT'>내용");
+
+		
+		//검색값에 따라 기본 선택된 검색 옵션 값을 수정
+		String condition = (String) session.getAttribute("condition");
+		if(condition.equals("TITLE")) {
+			out.println("<option value='TITLE' selected>제목");
+		} else {
+			out.println("<option value='TITLE'>제목");
+		}
+		
+		if(condition.equals("CONTENT")) {
+			out.println("<option value='CONTENT' selected>내용");
+		} else {
+			out.println("<option value='CONTENT'>내용");
+		}
+		out.println("</selection>");
+		
+		out.println("<input name='searchKeyword' type='text' value='"+session.getAttribute("keyword")+"'/>");
+
+//		out.println("<input name='searchKeyword' type='text'/>");
+		out.println("<input type='submit' value='검색'/>");
+		out.println("</td>");
+		out.println("</tr>");
+		out.println("</table>");
+		out.println("</form>");
+		out.println("<!--검색 종료-->");
+
+		
+		
+		//로그아웃
 		out.println("<a href='logout.do'>Log-out</a></h3>");
 		
+		//메뉴바
 		out.println("<table border='1' cellpadding='0' cellspacing='0' width='700'>");
 		out.println("<tr>");
 		out.println("<th bgcolor='orange' width='100'>번호</th>");
@@ -115,6 +178,7 @@ public class GetBoardListServlet extends HttpServlet {
 		out.println("<th bgcolor='orange' width='100'>조회수</th>");
 		out.println("</tr>");
 		
+		//글 리스트
 		for(BoardVO board : boardList) {
 			out.println("<tr>");
 			out.println("<td>"+board.getSeq()+"</td>");

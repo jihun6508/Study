@@ -22,6 +22,11 @@ public class BoardDAO {
 	private static String BOARD_GET = "select * from board where seq=?";
 	private static String BOARD_LIST = "select * from board order by seq desc";
 	
+	//검색 관련 쿼리
+	private String BOARD_LIST_T = "select * from board where title like '%'||?||'%' order by seq desc";
+	private String BOARD_LIST_C = "select * from board where content like '%'||?||'%' order by seq desc";
+	
+	
 	//CRUD 기능 메소드
 	//글 등록
 	public void insertBoard(BoardVO vo) {
@@ -100,7 +105,16 @@ public class BoardDAO {
 		List<BoardVO> boardList = new ArrayList<BoardVO>();
 		try {
 			conn = JDBCUtil.getConnection();
-			stmt = conn.prepareStatement(BOARD_LIST);
+			//제목 검색과 내용 검색으로 분기
+			if(vo.getSearchCondition().equals("TITLE")) {
+				stmt = conn.prepareStatement(BOARD_LIST_T);
+			} else if(vo.getSearchCondition().equals("CONTENT")) {
+				stmt = conn.prepareStatement(BOARD_LIST_C);
+			}
+			stmt.setString(1, vo.getSearchKeyword());
+
+//			stmt = conn.prepareStatement(BOARD_LIST);
+			
 			rs = stmt.executeQuery();
 			
 			while(rs.next()) {
@@ -121,5 +135,5 @@ public class BoardDAO {
 		return boardList;
 	}
 		
-		
+	
 }
