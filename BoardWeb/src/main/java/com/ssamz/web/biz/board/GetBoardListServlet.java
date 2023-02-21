@@ -100,7 +100,7 @@ public class GetBoardListServlet extends HttpServlet {
 		out.println("<center>");
 		out.println("<h1>게시글 목록</h1>");
 		
-		String userName = (String) session.getAttribute("userNAme");
+		String userName = (String) session.getAttribute("userName");
 		out.println("<h3>"+userName +"님 로그인을 환영합니다....");
 //		out.println("<h3>테스터님 로그인 환영합니다......");
 
