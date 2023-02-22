@@ -61,13 +61,15 @@ public class GetBoardListServlet extends HttpServlet {
 		}
 		*/
 		//0-3. 세션을 이용한 상태 정보 체크 구현  -> 인증 데이터가 없으면 로그인 창으로 리다이렉트됨
+		//AuthenticationFilter로 기능 이전하여 코드 주석처리
+		/*
 		HttpSession session = request.getSession();
 
 		String userId = (String) session.getAttribute("userId");
 		if(userId == null) {
 			response.sendRedirect("/");
 		}
-		
+		*/
 		//1. 사용자 입력 정보 추출
 		//1-1.인코딩 처리
 		//encoidng doFilter로 이동 후 주석처리
@@ -86,6 +88,7 @@ public class GetBoardListServlet extends HttpServlet {
 		if(searchKeyword == null) searchKeyword = "";  
 		
 		//세션에 검색 관련 정보 저장
+		HttpSession session = request.getSession(); //상태정보체크 주석처리에 따라 session 객체 별도 선언
 		session.setAttribute("condition", searchCondition);
 		session.setAttribute("keyword", searchKeyword);
 		

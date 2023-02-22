@@ -36,12 +36,14 @@ public class DeleteBoardServlet extends HttpServlet {
 		}
 		*/
 		//0-2. 세션 형태로 구현
+		//AuthenticationFilter로 기능 이전하여 코드 주석처리
+		/*
 		HttpSession session = request.getSession();
 		String userId = (String) session.getAttribute("userId");
 		if(userId ==null) {
 			response.sendRedirect("/");
 		}
-		
+		*/
 		// 1. 사용자 입력 정보 추출 => 사용자 입력 한글인코딩, 사용자 입력을 getParameter로 가져오기
 		String seq = request.getParameter("seq");
 		
