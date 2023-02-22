@@ -15,9 +15,9 @@ public class JDBCUtil {
 			DriverManager.registerDriver(new org.h2.Driver());
 			jdbcURL = "jdbc:h2:tcp://localhost/~/test";
 			conn = DriverManager.getConnection(jdbcURL, "sa", "");
-			if(conn!=null) {
-				System.out.println("H2 연결 성공: "+conn.toString());
-			}
+//			if(conn!=null) {
+//				System.out.println("H2 연결 성공: "+conn.toString());
+//			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

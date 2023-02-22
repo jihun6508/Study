@@ -62,6 +62,7 @@ public class GetBoardListServlet extends HttpServlet {
 		*/
 		//0-3. 세션을 이용한 상태 정보 체크 구현  -> 인증 데이터가 없으면 로그인 창으로 리다이렉트됨
 		HttpSession session = request.getSession();
+
 		String userId = (String) session.getAttribute("userId");
 		if(userId == null) {
 			response.sendRedirect("/");
@@ -69,9 +70,12 @@ public class GetBoardListServlet extends HttpServlet {
 		
 		//1. 사용자 입력 정보 추출
 		//1-1.인코딩 처리
+		//encoidng doFilter로 이동 후 주석처리
+		/*
 		ServletContext context = request.getServletContext();
 		String encoding = context.getInitParameter("boardEncoding");
 		request.setCharacterEncoding(encoding);
+		*/
 		
 		//1-2. 입력 정보 획득
 		String searchCondition = request.getParameter("searchCondition");
@@ -135,9 +139,9 @@ public class GetBoardListServlet extends HttpServlet {
 //		String welcomeMessage = (String) request.getAttribute("welcomeMessage");
 
 		//ServletContext에서 받아서 뿌림
-		String welcomeMessage = (String) context.getAttribute("welcomeMessage");
-
-		out.println("<h3>" + userName + welcomeMessage);
+		//encoding 주석처리에 따라 context 객체 생성을 안하게 되어 코드 사용 불가, 주석 처리
+//		String welcomeMessage = (String) context.getAttribute("welcomeMessage");
+//		out.println("<h3>" + userName + welcomeMessage);
 		
 		//텍스트만 구현
 //		out.println("<h3>테스터님 로그인 환영합니다......");

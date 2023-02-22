@@ -8,16 +8,14 @@
     <param-name>boardEncoding</param-name>
     <param-value>UTF-8</param-value>
   </context-param>
-  <!--
-  <servlet>
-    <description></description>
-    <display-name>GetBoardListServlet</display-name>
-    <servlet-name>GetBoardListServlet</servlet-name>
-    <servlet-class>com.saamz.web.biz.board.GetBoardListServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>GetBoardListServlet</servlet-name>
-    <url-pattern>/GetBoardList.do</url-pattern>
-  </servlet-mapping>
-  -->
-</web-app>
+ <!--  <filter>
+    <display-name>TimeCheckFilter</display-name>
+    <filter-name>TimeCheckFilter</filter-name>
+    <filter-class>com.ssamz.web.common.TimeCheckFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>TimeCheckFilter</filter-name>
+    <url-pattern>*.do</url-pattern>
+  </filter-mapping>
+ -->
+ </web-app>

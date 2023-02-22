@@ -44,10 +44,14 @@ public class InsertUserServlet extends HttpServlet {
 //		request.setCharacterEncoding("UTF-8");  //init-param을 사용하기 전
 //		request.setCharacterEncoding(encoding); //init() 에서 초기화 하는 경우
 
+		//doFileter에서 공통 encoding 처리 후 주석처리
+		/*
 		ServletContext context = getServletContext();
 		encoding = context.getInitParameter("boardEncoding");
 		System.out.println("---> Encoding : " + encoding);
 		request.setCharacterEncoding(encoding); 
+		*/
+		
 		/*
 		 * init()이 아닌 service에서 초기화하는 경우.
 		ServletConfig config = getServletConfig();
