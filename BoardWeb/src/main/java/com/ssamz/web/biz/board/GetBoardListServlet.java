@@ -121,8 +121,25 @@ public class GetBoardListServlet extends HttpServlet {
 		out.println("<center>");
 		out.println("<h1>게시글 목록</h1>");
 		
+		
+		
+		
+		//세션 아이디를 바탕으로 로그인 정보 표시
 		String userName = (String) session.getAttribute("userName");
-		out.println("<h3>"+userName +"님 로그인을 환영합니다....");
+//		out.println("<h3>"+userName +"님 로그인을 환영합니다....");
+		
+		//session을 바탕으로 메시지 뿌림
+//		String welcomeMessage = (String) session.getAttribute("welcomeMessage");
+		
+		//HttpServletRequest에서 받아서 뿌림
+//		String welcomeMessage = (String) request.getAttribute("welcomeMessage");
+
+		//ServletContext에서 받아서 뿌림
+		String welcomeMessage = (String) context.getAttribute("welcomeMessage");
+
+		out.println("<h3>" + userName + welcomeMessage);
+		
+		//텍스트만 구현
 //		out.println("<h3>테스터님 로그인 환영합니다......");
 		
 		//검색화면

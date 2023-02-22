@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -74,15 +75,29 @@ public class LoginServlet extends HttpServlet {
 				*/
 				//세션으로 구현
 				HttpSession session = request.getSession();
-				session.setMaxInactiveInterval(600);//세션 유효시간을 10분으로 설정
+//				session.setMaxInactiveInterval(600);//세션 유효시간을 10분으로 설정
 				session.setAttribute("userId", user.getId());
 				session.setAttribute("userName", user.getName());
 				session.setAttribute("userRole", user.getRole());
 				
+				//글 목록 화면에서 사용할 데이터를 HttpServletRequest에 등록 (리디렉트시 소멸)
+//				request.setAttribute("welcomeMessage", "님 환영합니다.");
 				
+				//글 목록 화면에서 사용할 데이터를 Session에 등록(리디렉트 해도 소멸되지 않음)
+//				session.setAttribute("welcomeMessage", "님 환영합니다.");
+				
+				//글 목록 화면에서 사용할 데이터를 ServletContext에 등록
+				ServletContext context = getServletContext();
+				context.setAttribute("welcomeMessage", "님 환영합니다.");
+								
 				//글 목록 화면으로 포워딩
-				RequestDispatcher dispatcher = request.getRequestDispatcher("getBoardList.do");
-				dispatcher.forward(request, response);
+//				RequestDispatcher dispatcher = request.getRequestDispatcher("getBoardList.do");
+//				dispatcher.forward(request, response);
+
+				//글 목록 화면으로 리디렉트 ->httpSubletRequest는 리디렉트 과정에서 소멸
+				response.sendRedirect("getBoardList.do");
+
+				
 			} else {
 				out.println("비밀번호 오류입니다.<br>");
 				out.println("<a href='/'>다시 로그인 </a>");
