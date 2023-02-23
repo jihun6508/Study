@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.ssamz.web.biz.user.UserVO;
+
+
 @WebServlet("/getBoard.do")
 public class GetBoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -82,10 +85,19 @@ public class GetBoardServlet extends HttpServlet {
 
 		// admin 권한을 가진 사람에게만 글삭제 링크를 보이게 함
 		HttpSession session = request.getSession(); //상태정보체크 주석처리에 따라 session 객체 별도 선언
-		String userRole = (String) session.getAttribute("userRole");
-		if (userRole.equals("ADMIN")) {
+		
+		//UserVO를 개별로 세션에 저장한 경우
+//		String userRole = (String) session.getAttribute("userRole");
+//		if (userRole.equals("ADMIN")) {
+//			out.println("<a href='deleteBoard.do?seq=" + board.getSeq() + "'>글삭제</a>&nbsp;&nbsp;&nbsp;");
+//		}
+		
+		//UserVO를 통째로 받아오는 경우
+		UserVO user = (UserVO) session.getAttribute("user");
+		if (user.getRole().equals("ADMIN")) {
 			out.println("<a href='deleteBoard.do?seq=" + board.getSeq() + "'>글삭제</a>&nbsp;&nbsp;&nbsp;");
-		}
+		}		
+		
 //      out.println("<a href='deleteBoard.do?seq=" + board.getSeq() +"'>글삭제</a>&nbsp;&nbsp;&nbsp;");
 
 		out.println("<a href='getBoardList.do'>글목록</a>");

@@ -23,7 +23,15 @@ public class AuthenticationFilter extends HttpFilter implements Filter {
 		HttpServletResponse res = (HttpServletResponse) response;
 		
 		HttpSession session = req.getSession();
-		if(session.getAttribute("userId")==null) {
+//		//세션에 개별 정보를 저장해쓸 때의 ㅋ드
+//		if(session.getAttribute("userId")==null) {
+//			res.sendRedirect("/");
+//		} else {
+//			chain.doFilter(request, response);
+//		}
+		
+		//세션에 userVO를 통째로 저장햇을 때의 코드
+		if(session.getAttribute("user")==null) {
 			res.sendRedirect("/");
 		} else {
 			chain.doFilter(request, response);

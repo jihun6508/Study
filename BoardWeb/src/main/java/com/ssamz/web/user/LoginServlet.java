@@ -76,9 +76,14 @@ public class LoginServlet extends HttpServlet {
 				//세션으로 구현
 				HttpSession session = request.getSession();
 //				session.setMaxInactiveInterval(600);//세션 유효시간을 10분으로 설정
-				session.setAttribute("userId", user.getId());
-				session.setAttribute("userName", user.getName());
-				session.setAttribute("userRole", user.getRole());
+				//유저 정보를 개별로 저장
+//				session.setAttribute("userId", user.getId());
+//				session.setAttribute("userName", user.getName());
+//				session.setAttribute("userRole", user.getRole());
+				
+				//유저 정보를 userVO 형태로 통째로 저장
+				session.setAttribute("user", user);
+				
 				
 				//글 목록 화면에서 사용할 데이터를 HttpServletRequest에 등록 (리디렉트시 소멸)
 //				request.setAttribute("welcomeMessage", "님 환영합니다.");
@@ -87,15 +92,15 @@ public class LoginServlet extends HttpServlet {
 //				session.setAttribute("welcomeMessage", "님 환영합니다.");
 				
 				//글 목록 화면에서 사용할 데이터를 ServletContext에 등록
-				ServletContext context = getServletContext();
-				context.setAttribute("welcomeMessage", "님 환영합니다.");
+//				ServletContext context = getServletContext();
+//				context.setAttribute("welcomeMessage", "님 환영합니다.");
 								
 				//글 목록 화면으로 포워딩
-//				RequestDispatcher dispatcher = request.getRequestDispatcher("getBoardList.do");
-//				dispatcher.forward(request, response);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("getBoardList.do");
+				dispatcher.forward(request, response);
 
 				//글 목록 화면으로 리디렉트 ->httpSubletRequest는 리디렉트 과정에서 소멸
-				response.sendRedirect("getBoardList.do");
+//				response.sendRedirect("getBoardList.do");
 
 				
 			} else {
