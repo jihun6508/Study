@@ -13,8 +13,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.annotation.WebInitParam;
 import javax.servlet.http.HttpFilter;
 
-@WebFilter(urlPatterns = {"/insertBoard.do", "/insertUser.do", "/updateUser.do", 
-		"/index.jsp", "/getBoardLisd.do","/insertBoard_proc.jsp", "/insertUser_proc.jsp", "/updateUser_proc.jsp", "/getBoardLisd_proc.jsp", "/updateBoard_proc.jsp"}, initParams = @WebInitParam(name = "boardEncoding", value = "UTF-8"))
+@WebFilter(urlPatterns = {"*.do"}, initParams = @WebInitParam(name = "boardEncoding", value = "UTF-8"))
 public class CharacterEncodingFilter extends HttpFilter implements Filter {
 	private static final long serialVersionUID = 1L;
 	private String encoding;

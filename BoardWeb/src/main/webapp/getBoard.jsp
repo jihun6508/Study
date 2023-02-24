@@ -4,21 +4,15 @@
 <%@ page import="java.util.List"%>
 
 <%
-// 1. 사용자 입력 정보 추출
-String seq = request.getParameter("seq");
-// 2.DB 연동 처리
-BoardVO vo = new BoardVO();
-vo.setSeq(Integer.parseInt(seq)); // 클릭한 일련번호의 값을 찾아서 처리
-
-BoardDAO boardDAO = new BoardDAO(); // 모델 DAO
-BoardVO board = boardDAO.getBoard(vo);
-//3. 화면 이동
+	// 1. 컨트롤러(Serlet)가 모델(DAO)을 이용하여 request에 등록한 글 목록을 꺼낸다.
+	BoardVO board = (BoardVO) request.getAttribute("board");
+	//3. 화면 이동
 %>
 
 <%@ include file="../layout/header.jsp"%>
 
 <center>
-	<form action='updateBoard_proc.jsp' method='post'>
+	<form action='updateBoard.do' method='post'>
 		<input name='seq' type='hidden' value="<%=board.getSeq()%>" />
 		<table border='1' cellpadding='0' cellspacing='0'>
 
@@ -54,7 +48,7 @@ BoardVO board = boardDAO.getBoard(vo);
 	<%
 	if (user.getRole().equals("ADMIN")) {
 	%>
-	<a href="deleteBoard_proc.jsp?seq=<%=board.getSeq()%>">글삭제</a>
+	<a href="deleteBoard.do?seq=<%=board.getSeq()%>">글삭제</a>
 	<%
 	}
 	%>
