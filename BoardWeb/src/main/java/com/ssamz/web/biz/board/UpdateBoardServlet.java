@@ -41,5 +41,6 @@ public class UpdateBoardServlet extends HttpServlet {
 		
 		//3. 화면 이동
 		RequestDispatcher dispatcher = request.getRequestDispatcher("getBoardList.do");
-		dispatcher.forward(request, response);	}
+		dispatcher.forward(request, response);
+		}
 }

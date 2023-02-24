@@ -92,6 +92,7 @@ public class InsertUserServlet extends HttpServlet {
 		
 		//3. 화면 이동
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/login.html");
-		dispatcher.forward(request, response);	}
+		dispatcher.forward(request, response);
+		}
 
 }
