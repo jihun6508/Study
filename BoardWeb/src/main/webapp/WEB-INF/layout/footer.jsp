@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" errorPage="errors/boardError.jsp"%>
+<%@ page contentType="text/html; charset=UTF-8"%>
 
 
 

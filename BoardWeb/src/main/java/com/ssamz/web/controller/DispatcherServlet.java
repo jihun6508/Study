@@ -49,7 +49,7 @@ public class DispatcherServlet extends HttpServlet {
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/getBoardList.do");
 				dispatcher.forward(request, response);
 			} else {
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/login.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/loginView.do");
 				dispatcher.forward(request, response);
 			}
 			
@@ -152,7 +152,7 @@ public class DispatcherServlet extends HttpServlet {
 			BoardVO board = boardDAO.getBoard(vo);
 			//3. 화면 이동
 			request.setAttribute("board", board);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/getBoardList.do");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/board/getBoard.jsp");
 			dispatcher.forward(request, response);
 			
 		}  else if(path.equals("/getBoardList.do")) {
@@ -180,11 +180,21 @@ public class DispatcherServlet extends HttpServlet {
 			
 			//3. 화면 이동
 			request.setAttribute("boardList", boardList);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/getBoardList.do");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/board/getBoardList.jsp");
 			dispatcher.forward(request, response);
 			
+		} else if(path.equals("/loginView.do")) {
+			System.out.println("로그인 화면으로 이동");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/board/login.jsp");
+			dispatcher.forward(request, response);
+		} else if(path.equals("/insertBoardView.do")) {
+			System.out.println("글 등록화면으로 이동");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/board/insertBoard.jsp");
+			dispatcher.forward(request, response);
+		} else if(path.equals("/insertUserView.do")) {
+			System.out.println("회원가입으로 이동");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/board/insertUser.jsp");
+			dispatcher.forward(request, response);
 		}
-		
-		
 	}
 }

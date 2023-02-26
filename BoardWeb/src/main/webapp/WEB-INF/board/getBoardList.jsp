@@ -9,14 +9,15 @@
 
 
 <%
-	//1. 컨트롤러(Serlet)가 모델(DAO)을 이용하여 request에 등록한 글 목록을 꺼낸다.
-	List<BoardVO> boardList = (List) request.getAttribute("boardList");
+	//1. 컨트롤러(Servlet)가 모델(DAO)을 이용하여 request에 등록한 글 목록을 꺼낸다.
+	List<BoardVO> boardList = (List)request.getAttribute("boardList");
+	
 	//3. 화면 이동
 	
 %>
 <center>
 	<h1>
-		<font color='green'>게스트</font>님 환영합니다
+		<font color='green'><%=user.getName()%></font>님 환영합니다
 	</h1>
 
 	<%--
@@ -74,7 +75,7 @@
 
 		<tr>
 			<td><%=board.getSeq()%></td>
-			<td align="left"><a href="getBoard.dop?seq=<%=board.getSeq()%>"><%=board.getTitle()%></a></td>
+			<td align="left"><a href="getBoard.do?seq=<%=board.getSeq()%>"><%=board.getTitle()%></a></td>
 			<td><%=board.getWriter()%></td>
 			<td><%=board.getRegDate()%></td>
 			<td><%=board.getCnt()%></td>

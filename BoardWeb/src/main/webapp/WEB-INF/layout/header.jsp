@@ -13,10 +13,10 @@
 <% UserVO user = (UserVO) session.getAttribute("user"); %>
 
 <%if(user==null){  %>
-<a href="insertUser.jsp">회원가입</a>&nbsp;&nbsp;&nbsp;
-<a href="login.jsp">로그인</a>&nbsp;&nbsp;&nbsp;
+<a href="insertUserView.do">회원가입</a>&nbsp;&nbsp;&nbsp;
+<a href="loginView.do">로그인</a>&nbsp;&nbsp;&nbsp;
 <%} else{ %>
-<a href="insertBoard.jsp">글등록</a>&nbsp;&nbsp;&nbsp;
+<a href="insertBoardView.do">글등록</a>&nbsp;&nbsp;&nbsp;
 <a href="logout.do">로그아웃</a>&nbsp;&nbsp;&nbsp;
 <%} %>
 
